@@ -16,7 +16,7 @@ Plateforme web de critiques et recommandations de films.
 - Recommandations personnalisées
 - Import de films via TMDB API
 
-## 🚀 Installation
+##  Installation
 ```bash
 cd mon_projet/backend
 pip install -r requirements.txt
@@ -24,5 +24,5 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-## 👨‍💻 Auteur
+##  Auteur
 Omar Labhija — Étudiant Génie Informatique & Réseaux, EMSI Casablanca
