@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard — FilmCritique{% endblock %}
+{% block content %}
+
+<div class="fc-page-header">
+    <h1>Dashboard</h1>
+    <p>Vue d'ensemble de la plateforme</p>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem; margin-bottom: 2.5rem;">
+
+    <a href="/" style="text-decoration: none;">
+        <div class="fc-card" style="padding: 1.5rem; display: flex; align-items: center; gap: 1rem; cursor: pointer;">
+            <div style="background: var(--c-accent-soft); width: 52px; height: 52px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e63946" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="m8 21 4-4 4 4"/><path d="M12 17v4"/></svg>
+            </div>
+            <div>
+                <p style="font-size: 0.72rem; color: var(--c-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.2rem;">Films</p>
+                <p style="font-size: 1.1rem; font-weight: 600; color: var(--c-text);">Voir le catalogue</p>
+            </div>
+        </div>
+    </a>
+
+    <a href="/reviews/" style="text-decoration: none;">
+        <div class="fc-card" style="padding: 1.5rem; display: flex; align-items: center; gap: 1rem; cursor: pointer;">
+            <div style="background: rgba(244,162,0,0.12); width: 52px; height: 52px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f4a200" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <div>
+                <p style="font-size: 0.72rem; color: var(--c-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.2rem;">Critiques</p>
+                <p style="font-size: 1.1rem; font-weight: 600; color: var(--c-text);">Toutes les critiques</p>
+            </div>
+        </div>
+    </a>
+
+    <a href="/recommendations/" style="text-decoration: none;">
+        <div class="fc-card" style="padding: 1.5rem; display: flex; align-items: center; gap: 1rem; cursor: pointer;">
+            <div style="background: rgba(55,138,221,0.12); width: 52px; height: 52px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#378add" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>
+            </div>
+            <div>
+                <p style="font-size: 0.72rem; color: var(--c-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.2rem;">Recommandations</p>
+                <p style="font-size: 1.1rem; font-weight: 600; color: var(--c-text);">Personnalisées</p>
+            </div>
+        </div>
+    </a>
+
+    <a href="/users/" style="text-decoration: none;">
+        <div class="fc-card" style="padding: 1.5rem; display: flex; align-items: center; gap: 1rem; cursor: pointer;">
+            <div style="background: rgba(99,153,34,0.12); width: 52px; height: 52px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#639922" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div>
+                <p style="font-size: 0.72rem; color: var(--c-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.2rem;">Profil</p>
+                <p style="font-size: 1.1rem; font-weight: 600; color: var(--c-text);">Mon compte</p>
+            </div>
+        </div>
+    </a>
+
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+    <div class="fc-card">
+        <div class="fc-card-body">
+            <h2 class="fc-section-title" style="font-size: 1.1rem; margin-bottom: 1rem;">Actions rapides</h2>
+            <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+                <a href="/admin/movie/movie/add/" class="fc-btn fc-btn-primary" style="justify-content: center;">+ Ajouter un film</a>
+                <a href="/admin/reviews/review/add/" class="fc-btn fc-btn-ghost" style="justify-content: center;">+ Ajouter une critique</a>
+                <a href="/admin/" class="fc-btn fc-btn-ghost" style="justify-content: center;">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+                    Administration
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="fc-card">
+        <div class="fc-card-body">
+            <h2 class="fc-section-title" style="font-size: 1.1rem; margin-bottom: 1rem;">Informations</h2>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.88rem; padding-bottom: 0.75rem; border-bottom: 0.5px solid var(--c-border);">
+                    <span style="color: var(--c-muted);">Plateforme</span>
+                    <span style="font-weight: 500;">FilmCritique</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.88rem; padding-bottom: 0.75rem; border-bottom: 0.5px solid var(--c-border);">
+                    <span style="color: var(--c-muted);">Framework</span>
+                    <span class="fc-badge fc-badge-muted">Django 6.0</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.88rem;">
+                    <span style="color: var(--c-muted);">Statut</span>
+                    <span class="fc-badge fc-badge-gold" style="display:inline-flex; align-items:center; gap:5px;">
+                        <svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="5" fill="#f4a200"/></svg>
+                        Développement
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FilmCritique{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --c-bg: #0a0a0f;
+            --c-surface: #111118;
+            --c-surface2: #1a1a24;
+            --c-border: rgba(255,255,255,0.07);
+            --c-text: #f0eff8;
+            --c-muted: #7a79a0;
+            --c-accent: #e63946;
+            --c-accent-soft: rgba(230,57,70,0.12);
+            --c-gold: #f4a200;
+            --nav-h: 64px;
+            --ff-display: 'Bebas Neue', sans-serif;
+            --ff-body: 'DM Sans', sans-serif;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: var(--c-bg);
+            color: var(--c-text);
+            font-family: var(--ff-body);
+            font-weight: 400;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ── NAVBAR ─────────────────────────────────── */
+        .fc-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            height: var(--nav-h);
+            display: flex;
+            align-items: center;
+            background: rgba(10,10,15,0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 0.5px solid var(--c-border);
+            padding: 0 2rem;
+            gap: 2.5rem;
+        }
+
+        .fc-brand {
+            font-family: var(--ff-display);
+            font-size: 1.7rem;
+            letter-spacing: 0.04em;
+            color: var(--c-text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            flex-shrink: 0;
+        }
+        .fc-brand span.dot {
+            display: inline-block;
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--c-accent);
+            margin-bottom: 4px;
+        }
+        .fc-brand:hover { color: var(--c-text); text-decoration: none; }
+
+        .fc-nav-links {
+            display: flex;
+            gap: 0.25rem;
+            list-style: none;
+            flex: 1;
+        }
+
+        .fc-nav-links a {
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--c-muted);
+            text-decoration: none;
+            padding: 0.4rem 0.85rem;
+            border-radius: 6px;
+            transition: color 0.18s, background 0.18s;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+        .fc-nav-links a:hover,
+        .fc-nav-links a.active {
+            color: var(--c-text);
+            background: var(--c-surface2);
+        }
+        .fc-nav-links a.active {
+            color: var(--c-accent);
+        }
+
+        .fc-nav-right {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-left: auto;
+            list-style: none;
+        }
+        .fc-nav-right a {
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--c-muted);
+            text-decoration: none;
+            transition: color 0.18s;
+            padding: 0.4rem 0.85rem;
+            border-radius: 6px;
+        }
+        .fc-nav-right a:hover { color: var(--c-text); }
+
+        .btn-nav-profile {
+            background: var(--c-accent) !important;
+            color: #fff !important;
+            border-radius: 8px;
+            padding: 0.38rem 1rem !important;
+            font-weight: 600 !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 7px !important;
+        }
+        .btn-nav-profile:hover { background: #c62b36 !important; }
+
+        /* ── MAIN CONTENT ───────────────────────────── */
+        .fc-main {
+            padding: 2.5rem 2rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        /* ── PAGE HEADER ───────────────────────────── */
+        .fc-page-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 0.5px solid var(--c-border);
+        }
+        .fc-page-header h1 {
+            font-family: var(--ff-display);
+            font-size: clamp(2rem, 4vw, 3rem);
+            letter-spacing: 0.04em;
+            line-height: 1.1;
+            color: var(--c-text);
+        }
+        .fc-page-header p {
+            color: var(--c-muted);
+            font-size: 0.95rem;
+            margin-top: 0.35rem;
+        }
+
+        /* ── CARDS ──────────────────────────────────── */
+        .fc-card {
+            background: var(--c-surface);
+            border: 0.5px solid var(--c-border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.22s ease, border-color 0.22s ease;
+        }
+        .fc-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255,255,255,0.14);
+        }
+        .fc-card-body { padding: 1.25rem; }
+
+        /* ── BADGES ─────────────────────────────────── */
+        .fc-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.25rem 0.65rem;
+            border-radius: 4px;
+        }
+        .fc-badge-red   { background: var(--c-accent-soft); color: var(--c-accent); }
+        .fc-badge-gold  { background: rgba(244,162,0,0.12); color: var(--c-gold); }
+        .fc-badge-muted { background: var(--c-surface2); color: var(--c-muted); }
+
+        /* ── BUTTONS ────────────────────────────────── */
+        .fc-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-family: var(--ff-body);
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.04em;
+            padding: 0.55rem 1.2rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.18s, transform 0.14s;
+        }
+        .fc-btn:active { transform: scale(0.97); }
+        .fc-btn-primary {
+            background: var(--c-accent);
+            color: #fff;
+        }
+        .fc-btn-primary:hover { background: #c62b36; color: #fff; text-decoration: none; }
+        .fc-btn-ghost {
+            background: var(--c-surface2);
+            color: var(--c-text);
+        }
+        .fc-btn-ghost:hover { background: rgba(255,255,255,0.1); color: var(--c-text); text-decoration: none; }
+
+        /* ── SECTION TITLE ──────────────────────────── */
+        .fc-section-title {
+            font-family: var(--ff-display);
+            font-size: 1.5rem;
+            letter-spacing: 0.06em;
+            color: var(--c-text);
+            margin-bottom: 1.25rem;
+        }
+        .fc-section-title span {
+            color: var(--c-accent);
+        }
+
+        /* ── ALERTS / MESSAGES ──────────────────────── */
+        .fc-alert {
+            padding: 0.9rem 1.2rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            border-left: 3px solid;
+            margin-bottom: 1rem;
+        }
+        .fc-alert-info    { background: rgba(55,138,221,0.1); border-color: #378add; color: #85b7eb; }
+        .fc-alert-success { background: rgba(99,153,34,0.1); border-color: #639922; color: #97c459; }
+        .fc-alert-warning { background: rgba(186,117,23,0.1); border-color: #ba7517; color: #ef9f27; }
+        .fc-alert-danger  { background: var(--c-accent-soft); border-color: var(--c-accent); color: #f0a0a5; }
+
+        /* ── FOOTER ─────────────────────────────────── */
+        .fc-footer {
+            margin-top: 4rem;
+            border-top: 0.5px solid var(--c-border);
+            padding: 1.75rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .fc-footer-brand {
+            font-family: var(--ff-display);
+            font-size: 1.1rem;
+            letter-spacing: 0.06em;
+            color: var(--c-muted);
+        }
+        .fc-footer p {
+            font-size: 0.8rem;
+            color: var(--c-muted);
+            margin: 0;
+        }
+
+        /* ── UTILITY ────────────────────────────────── */
+        .text-muted-fc { color: var(--c-muted); }
+        .text-accent    { color: var(--c-accent); }
+        .text-gold      { color: var(--c-gold); }
+        hr.fc-hr {
+            border: none;
+            border-top: 0.5px solid var(--c-border);
+            margin: 1.5rem 0;
+        }
+
+        /* ── RESPONSIVE ─────────────────────────────── */
+        .fc-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            margin-left: auto;
+        }
+        .fc-hamburger span {
+            display: block; width: 22px; height: 2px;
+            background: var(--c-text);
+            border-radius: 2px;
+            transition: 0.2s;
+        }
+
+        @media (max-width: 768px) {
+            .fc-nav { gap: 1rem; padding: 0 1rem; flex-wrap: wrap; height: auto; min-height: var(--nav-h); }
+            .fc-hamburger { display: flex; }
+            .fc-nav-links, .fc-nav-right {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                padding: 0.75rem 0 1rem;
+                border-top: 0.5px solid var(--c-border);
+                gap: 0.15rem;
+            }
+            .fc-nav-links.open, .fc-nav-right.open { display: flex; }
+            .fc-nav-right { margin-left: 0; }
+            .fc-main { padding: 1.5rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="fc-nav">
+    <a href="/" class="fc-brand">
+        FilmCritique<span class="dot"></span>
+    </a>
+
+    <button class="fc-hamburger" onclick="toggleNav()" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+
+    <ul class="fc-nav-links" id="navLinks">
+        <li>
+            <a href="/">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="m8 21 4-4 4 4"/><path d="M12 17v4"/></svg>
+                Films
+            </a>
+        </li>
+        <li>
+            <a href="/reviews/">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                Critiques
+            </a>
+        </li>
+        <li>
+            <a href="/recommendations/">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                Recommandations
+            </a>
+        </li>
+        <li>
+            <a href="/dashboard/">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                Dashboard
+            </a>
+        </li>
+    </ul>
+
+    <ul class="fc-nav-right" id="navRight">
+        <li>
+            <a href="/users/" class="btn-nav-profile">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Profil
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<main class="fc-main">
+    {% if messages %}
+        {% for message in messages %}
+        <div class="fc-alert fc-alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="fc-footer">
+    <span class="fc-footer-brand">FilmCritique<span style="color:var(--c-accent)">.</span></span>
+    <p>© 2025 — Plateforme de critiques de films &amp; séries</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+    document.getElementById('navRight').classList.toggle('open');
+}
+// Active nav link
+document.querySelectorAll('.fc-nav-links a').forEach(link => {
+    if (link.href === window.location.href) link.classList.add('active');
+});
+</script>
+</body>
+</html>

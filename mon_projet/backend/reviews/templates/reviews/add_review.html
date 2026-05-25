@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block title %}Ajouter une critique — FilmCritique{% endblock %}
+{% block content %}
+
+<a href="/reviews/" class="fc-btn fc-btn-ghost" style="margin-bottom: 2rem; display: inline-flex;">← Retour aux critiques</a>
+
+<div style="max-width: 640px; margin: 0 auto;">
+
+    <div class="fc-page-header">
+        <h1>Nouvelle <span style="color:var(--c-accent)">Critique</span></h1>
+        <p>Partagez votre avis sur un film</p>
+    </div>
+
+    <div class="fc-card">
+        <div class="fc-card-body" style="padding: 2rem;">
+            <form method="post">
+                {% csrf_token %}
+
+                {% if form.errors %}
+                <div class="fc-alert fc-alert-danger" style="margin-bottom: 1.5rem;">
+                    Veuillez corriger les erreurs ci-dessous.
+                </div>
+                {% endif %}
+
+                <!-- Film -->
+                <div style="margin-bottom: 1.25rem;">
+                    <label style="display: block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--c-muted); margin-bottom: 0.5rem;">
+                        Film
+                    </label>
+                    {{ form.film }}
+                    {% if form.film.errors %}
+                    <p style="font-size: 0.8rem; color: var(--c-accent); margin-top: 0.35rem;">{{ form.film.errors|join:", " }}</p>
+                    {% endif %}
+                </div>
+
+                <!-- Contenu -->
+                <div style="margin-bottom: 1.25rem;">
+                    <label style="display: block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--c-muted); margin-bottom: 0.5rem;">
+                        Votre critique
+                    </label>
+                    {{ form.contenu }}
+                    {% if form.contenu.errors %}
+                    <p style="font-size: 0.8rem; color: var(--c-accent); margin-top: 0.35rem;">{{ form.contenu.errors|join:", " }}</p>
+                    {% endif %}
+                </div>
+
+                <!-- Note -->
+                <div style="margin-bottom: 1.25rem;">
+                    <label style="display: block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--c-muted); margin-bottom: 0.5rem;">
+                        Note <span style="color: var(--c-gold);">/ 5</span>
+                    </label>
+                    {{ form.note }}
+                    {% if form.note.errors %}
+                    <p style="font-size: 0.8rem; color: var(--c-accent); margin-top: 0.35rem;">{{ form.note.errors|join:", " }}</p>
+                    {% endif %}
+                </div>
+
+                <!-- Statut -->
+                <div style="margin-bottom: 2rem;">
+                    <label style="display: block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--c-muted); margin-bottom: 0.5rem;">
+                        Statut
+                    </label>
+                    {{ form.statut }}
+                    {% if form.statut.errors %}
+                    <p style="font-size: 0.8rem; color: var(--c-accent); margin-top: 0.35rem;">{{ form.statut.errors|join:", " }}</p>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="fc-btn fc-btn-primary" style="width: 100%; justify-content: center; padding: 0.75rem;">
+                    Publier la critique
+                </button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<style>
+input[type="text"], input[type="number"], select, textarea {
+    width: 100%;
+    background: var(--c-surface2);
+    border: 0.5px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    color: var(--c-text);
+    font-family: var(--ff-body);
+    font-size: 0.9rem;
+    padding: 0.65rem 0.9rem;
+    outline: none;
+    transition: border-color 0.18s;
+    box-sizing: border-box;
+}
+input[type="text"]:focus, input[type="number"]:focus, select:focus, textarea:focus {
+    border-color: var(--c-accent);
+    box-shadow: 0 0 0 3px var(--c-accent-soft);
+}
+textarea { min-height: 130px; resize: vertical; }
+select option { background: #1a1a24; }
+</style>
+
+{% endblock %}

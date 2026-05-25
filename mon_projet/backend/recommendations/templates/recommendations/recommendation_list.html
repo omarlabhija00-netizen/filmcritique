@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Recommandations — FilmCritique{% endblock %}
+{% block content %}
+
+<div class="fc-page-header">
+    <h1>Recommandations</h1>
+    <p>Films sélectionnés pour vous</p>
+</div>
+
+{% if recommendations %}
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem;">
+    {% for reco in recommendations %}
+    <div class="fc-card">
+        <div class="fc-card-body">
+            <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.75rem;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f4a200" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>
+                <h3 style="font-size: 1rem; font-weight: 600; margin: 0;">{{ reco.film.titre }}</h3>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--c-muted); line-height: 1.6; margin: 0;">{{ reco.raison }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div style="text-align: center; padding: 5rem 2rem;">
+   <div style="margin-bottom: 1rem; opacity: 0.3;">
+    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#f4a200" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>
+</div>
+    <p style="color: var(--c-muted); font-size: 1rem; margin-bottom: 1.5rem;">Aucune recommandation pour le moment.</p>
+    <a href="/" class="fc-btn fc-btn-ghost">← Voir les films</a>
+</div>
+{% endif %}
+
+{% endblock %}

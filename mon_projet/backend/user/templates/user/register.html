@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block title %}Inscription — FilmCritique{% endblock %}
+{% block content %}
+
+<div style="min-height: 60vh; display: flex; align-items: center; justify-content: center; padding: 2rem 0;">
+<div style="width: 100%; max-width: 460px;">
+
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <h1 style="font-family: var(--ff-display); font-size: 2.5rem; letter-spacing: 0.06em; margin-bottom: 0.35rem;">
+            Créer un <span style="color:var(--c-accent)">compte</span>
+        </h1>
+        <p style="color: var(--c-muted); font-size: 0.9rem;">Rejoignez la communauté FilmCritique</p>
+    </div>
+
+    <div class="fc-card">
+        <div class="fc-card-body" style="padding: 2rem;">
+
+            {% if form.errors %}
+            <div class="fc-alert fc-alert-danger" style="margin-bottom: 1.25rem;">
+                Veuillez corriger les erreurs ci-dessous.
+            </div>
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+
+                {% for field in form %}
+                <div style="margin-bottom: 1.1rem;">
+                    <label style="display: block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--c-muted); margin-bottom: 0.5rem;">
+                        {{ field.label }}
+                        {% if field.field.required %}<span style="color: var(--c-accent);">*</span>{% endif %}
+                    </label>
+                    {{ field }}
+                    {% if field.errors %}
+                    <p style="font-size: 0.8rem; color: var(--c-accent); margin-top: 0.35rem;">{{ field.errors|join:", " }}</p>
+                    {% endif %}
+                    {% if field.help_text %}
+                    <p style="font-size: 0.75rem; color: var(--c-muted); margin-top: 0.3rem;">{{ field.help_text }}</p>
+                    {% endif %}
+                </div>
+                {% endfor %}
+
+                <button type="submit" class="fc-btn fc-btn-primary" style="width: 100%; justify-content: center; padding: 0.75rem; font-size: 0.9rem; margin-top: 0.75rem;">
+                    Créer mon compte
+                </button>
+            </form>
+
+            <hr class="fc-hr" style="margin: 1.5rem 0;">
+
+            <p style="text-align: center; font-size: 0.85rem; color: var(--c-muted);">
+                Déjà un compte ?
+                <a href="/user/login/" style="color: var(--c-accent); text-decoration: none; font-weight: 500;">Se connecter</a>
+            </p>
+
+        </div>
+    </div>
+
+</div>
+</div>
+
+<style>
+input[type="text"], input[type="password"], input[type="email"] {
+    width: 100%;
+    background: var(--c-surface2);
+    border: 0.5px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    color: var(--c-text);
+    font-family: var(--ff-body);
+    font-size: 0.9rem;
+    padding: 0.65rem 0.9rem;
+    outline: none;
+    transition: border-color 0.18s;
+    box-sizing: border-box;
+}
+input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
+    border-color: var(--c-accent);
+    box-shadow: 0 0 0 3px var(--c-accent-soft);
+}
+</style>
+
+{% endblock %}

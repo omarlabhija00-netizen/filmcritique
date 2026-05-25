@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %}Connexion — FilmCritique{% endblock %}
+{% block content %}
+
+<div style="min-height: 60vh; display: flex; align-items: center; justify-content: center;">
+<div style="width: 100%; max-width: 420px;">
+
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <h1 style="font-family: var(--ff-display); font-size: 2.5rem; letter-spacing: 0.06em; margin-bottom: 0.35rem;">
+            Film<span style="color:var(--c-accent)">Critique</span>
+        </h1>
+        <p style="color: var(--c-muted); font-size: 0.9rem;">Connectez-vous pour accéder à votre compte</p>
+    </div>
+
+    <div class="fc-card">
+        <div class="fc-card-body" style="padding: 2rem;">
+
+            {% if form.errors %}
+            <div class="fc-alert fc-alert-danger" style="margin-bottom: 1.25rem;">
+                Identifiant ou mot de passe incorrect.
+            </div>
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+
+                <div style="margin-bottom: 1.1rem;">
+                    <label style="display: block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--c-muted); margin-bottom: 0.5rem;">
+                        Nom d'utilisateur
+                    </label>
+                    {{ form.username }}
+                </div>
+
+                <div style="margin-bottom: 1.75rem;">
+                    <label style="display: block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--c-muted); margin-bottom: 0.5rem;">
+                        Mot de passe
+                    </label>
+                    {{ form.password }}
+                </div>
+
+                <button type="submit" class="fc-btn fc-btn-primary" style="width: 100%; justify-content: center; padding: 0.75rem; font-size: 0.9rem;">
+                    Se connecter
+                </button>
+            </form>
+
+            <hr class="fc-hr" style="margin: 1.5rem 0;">
+
+            <p style="text-align: center; font-size: 0.85rem; color: var(--c-muted);">
+                Pas encore de compte ?
+                <a href="/user/register/" style="color: var(--c-accent); text-decoration: none; font-weight: 500;">Créer un compte</a>
+            </p>
+
+        </div>
+    </div>
+
+</div>
+</div>
+
+<style>
+input[type="text"], input[type="password"] {
+    width: 100%;
+    background: var(--c-surface2);
+    border: 0.5px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    color: var(--c-text);
+    font-family: var(--ff-body);
+    font-size: 0.9rem;
+    padding: 0.65rem 0.9rem;
+    outline: none;
+    transition: border-color 0.18s;
+    box-sizing: border-box;
+}
+input[type="text"]:focus, input[type="password"]:focus {
+    border-color: var(--c-accent);
+    box-shadow: 0 0 0 3px var(--c-accent-soft);
+}
+</style>
+
+{% endblock %}
